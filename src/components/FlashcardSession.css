@@ -14,6 +14,7 @@
   padding: 16px 20px;
   background: white;
   min-height: 60px;
+  flex-shrink: 0;
 }
 
 .card-counter {
@@ -46,6 +47,7 @@
 .progress-bar-container {
   height: 3px;
   background: #E5E7EB;
+  flex-shrink: 0;
 }
 
 .progress-bar {
@@ -55,9 +57,11 @@
 
 .flashcard-container {
   flex: 1;
-  padding: 20px 20px 180px 20px;
+  padding: 20px 20px 0 20px;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  min-height: 0;
 }
 
 .flashcard {
@@ -65,8 +69,10 @@
   border-radius: 20px;
   padding: 24px;
   min-height: 400px;
+  max-height: calc(100vh - 280px);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
   transition: background 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .flashcard.flipped {
@@ -179,6 +185,7 @@
   padding: 20px;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  flex-shrink: 0;
 }
 
 .response-prompt {
