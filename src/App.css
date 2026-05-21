@@ -4,13 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 20px 10px;  /* Reduced from 40px 20px */
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .iphone-frame {
   width: 390px;
-  height: 844px;
+  height: 720px;  /* Reduced from 844px - More compact for phones */
   background: #1C1C1E;
   border-radius: 55px;
   padding: 12px;
@@ -69,4 +69,32 @@ input, select, textarea {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Mobile optimization - Full screen on actual phones */
+@media (max-width: 430px) {
+  .app-container {
+    padding: 0;
+    align-items: stretch;
+  }
+  
+  .iphone-frame {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  
+  .iphone-notch {
+    display: none;  /* Hide notch on actual phones */
+  }
+  
+  .iphone-screen {
+    border-radius: 0;
+  }
+  
+  .iphone-home-indicator {
+    display: none;  /* Hide on actual phones */
+  }
 }
