@@ -20,6 +20,7 @@ function FeedbackForm({ sessionData, onComplete }) {
     want_mcqs_after: '',
     session_feeling: '',
     comparison_to_normal_revision: '',
+    daily_cards_preference: '',
     additional_comments: ''
   });
 
@@ -93,6 +94,17 @@ function FeedbackForm({ sessionData, onComplete }) {
         'About the same',
         'I don\'t have a regular revision method'
       ]
+    },
+    {
+      id: 'daily_cards_preference',
+      label: 'How would you prefer to get your daily flashcards?',
+      options: [
+        'I want to create my own cards from my notes',
+        'I want pre-made cards ready to review',
+        'I want both - create some, get some ready-made',
+        'I want to pick topics, but not create individual cards',
+        'No preference, whatever works'
+      ]
     }
   ];
 
@@ -150,20 +162,21 @@ function FeedbackForm({ sessionData, onComplete }) {
       return;
     }
 
-    // Validate all dropdown questions - FIXED: removed trim() check
+    // Validate all dropdown questions
     const requiredDropdowns = [
       'biggest_barrier',
       'most_important_feature',
       'want_mcqs_after',
       'session_feeling',
-      'comparison_to_normal_revision'
+      'comparison_to_normal_revision',
+      'daily_cards_preference'
     ];
 
     for (const fieldName of requiredDropdowns) {
       const value = formData[fieldName];
       if (!value || value === '') {
         setError('Please answer all questions');
-        console.log('Missing field:', fieldName, 'Value:', value); // Debug
+        console.log('Missing field:', fieldName, 'Value:', value);
         return;
       }
     }
@@ -192,6 +205,7 @@ function FeedbackForm({ sessionData, onComplete }) {
             want_mcqs_after: formData.want_mcqs_after,
             session_feeling: formData.session_feeling,
             comparison_to_normal_revision: formData.comparison_to_normal_revision,
+            daily_cards_preference: formData.daily_cards_preference,
             additional_comments: formData.additional_comments.trim()
           }
         ]);
