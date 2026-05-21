@@ -9,13 +9,12 @@ export const flashcards = [
     clinical: "Erb's palsy affects suprascapular, axillary, and musculocutaneous nerves. Ulnar nerve (C8-T1) remains intact, so intrinsic hand muscles and medial two lumbricals are preserved. Classic 'waiter's tip' position."
   },
 
-  // CARD 2: Muscles of Mastication (IMAGE-BASED)
+  // CARD 2: Muscles of Mastication (IMAGE-BASED - image only on answer)
   {
     id: 2,
     subject: "Anatomy",
     topic: "Muscles of Mastication",
     question: "Identify the muscle labeled '1' in this image",
-    questionImage: "/images/Muscles-mastication.png",
     answer: "Temporalis (Musculus temporalis)",
     answerImage: "/images/Muscles-mastication.png",
     clinical: "The temporalis is one of the 4 muscles of mastication. It is a broad, radiating muscle whose contractions can be seen during chewing. Origin: Floor of the temporal fossa and the deep surface of the temporal fascia. The muscles of mastication are derived embryologically from the 1st pharyngeal (branchial) arch and are innervated by the mandibular division of the trigeminal nerve (CN V3)."
@@ -31,13 +30,12 @@ export const flashcards = [
     clinical: "Indirect hernia = lateral to inferior epigastric artery (enters deep ring, congenital). Direct hernia = medial (through Hesselbach's triangle, acquired). High-yield differentiator in NEET PG and surgery vivas."
   },
 
-  // CARD 4: Straight Sinus (IMAGE-BASED)
+  // CARD 4: Straight Sinus (IMAGE-BASED - image only on answer)
   {
     id: 4,
     subject: "Anatomy",
     topic: "Venous Sinuses",
     question: "The inferior sagittal sinus terminates by joining with the __________ to form the straight sinus",
-    questionImage: "/images/Straight-sinus.png",
     answer: "Great cerebral vein (of Galen)",
     answerImage: "/images/Straight-sinus.png",
     clinical: "The inferior sagittal sinus terminates by joining with the great cerebral vein of Galen to form the straight sinus. This junction occurs at the posterior end of the falx cerebri. The straight sinus then runs along the junction of the falx cerebri and tentorium cerebelli to drain into the confluence of sinuses."
@@ -53,13 +51,12 @@ export const flashcards = [
     clinical: "Carpal tunnel syndrome (median nerve compression) causes thenar weakness (APB, OP, FPB) and sensory loss over lateral 3½ digits. Most common entrapment neuropathy of upper limb. Tinel's and Phalen's signs positive."
   },
 
-  // CARD 6: Carotid Triangle (IMAGE-BASED)
+  // CARD 6: Carotid Triangle (IMAGE-BASED - image only on answer)
   {
     id: 6,
     subject: "Anatomy",
     topic: "Neck Triangles",
     question: "Identify the missing muscle boundary of the carotid triangle: Digastric muscle (superior), ________ muscle (inferior), Sternocleidomastoid muscle (posterior)",
-    questionImage: "/images/Carotid-triangle.png",
     answer: "Omohyoid muscle (superior belly)",
     answerImage: "/images/Carotid-triangle.png",
     clinical: "The carotid triangle is bounded by: the posterior belly of the digastric muscle (superiorly), the superior belly of the omohyoid muscle (inferiorly), and the anterior border of the sternocleidomastoid muscle (posteriorly). Contents include the common carotid artery (and its bifurcation), internal jugular vein, vagus nerve (CN X), and hypoglossal nerve (CN XII)."
@@ -85,13 +82,12 @@ export const flashcards = [
     clinical: "Femoral canal is the site of femoral hernia (more common in females). Contains lymphatics and Cloquet's node. Mnemonic: NAVEL (Nerve, Artery, Vein, Empty space, Lymphatics)."
   },
 
-  // CARD 9: Ureter and Vas Deferens (IMAGE-BASED)
+  // CARD 9: Ureter and Vas Deferens (IMAGE-BASED - image only on answer)
   {
     id: 9,
     subject: "Anatomy",
     topic: "Ureter Relations",
     question: "In males, the ureters pass ________ the vas deferens",
-    questionImage: "/images/Ureter.png",
     answer: "Under (deep to) the vas deferens",
     answerImage: "/images/Ureter.png",
     clinical: "In males, the ureters pass under (deep to) the vas deferens near the posterolateral angle of the bladder. Mnemonic: 'Water under the bridge' - the ureter (carrying water/urine) passes under the vas deferens (the bridge). This is an important anatomical relationship during pelvic surgeries to avoid ureteric injury."
@@ -107,13 +103,12 @@ export const flashcards = [
     clinical: "Most commonly injured nerve in lower limb due to superficial position. Results in loss of dorsiflexion (deep peroneal) and eversion (superficial peroneal). Patient compensates with high-stepping gait to clear toes."
   },
 
-  // CARD 11: Saphenous Nerve (IMAGE-BASED)
+  // CARD 11: Saphenous Nerve (IMAGE-BASED - image only on answer)
   {
     id: 11,
     subject: "Anatomy",
     topic: "Lower Limb Innervation",
     question: "Sensory supply from the ________ part of the leg is carried by the saphenous nerve, which is a branch of the femoral nerve",
-    questionImage: "/images/Saphenous-nerve.png",
     answer: "Medial part of the leg",
     answerImage: "/images/Saphenous-nerve.png",
     clinical: "The saphenous nerve is the longest branch of the femoral nerve (L3-L4). It provides sensory innervation to the medial aspect of the leg from the knee down to the medial malleolus and medial arch of the foot. It descends with the great saphenous vein and can be injured during varicose vein surgery or saphenous vein harvesting for cardiac bypass grafts."
