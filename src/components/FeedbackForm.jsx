@@ -14,12 +14,12 @@ function FeedbackForm({ sessionData, onComplete }) {
     user_name: '',
     phone_number: '',
     mbbs_year: '',
-    why_use_flashcards: [], // Array for multi-select
+    why_use_flashcards: [],
     biggest_barrier: '',
     most_important_feature: '',
     want_mcqs_after: '',
     session_feeling: '',
-    comparison_to_normal_revision: '',  // NEW QUESTION ADDED
+    comparison_to_normal_revision: '',
     additional_comments: ''
   });
 
@@ -88,7 +88,6 @@ function FeedbackForm({ sessionData, onComplete }) {
         'Somewhere in between'
       ]
     },
-    // NEW 6TH QUESTION ADDED HERE
     {
       id: 'comparison_to_normal_revision',
       label: 'How is this compared to how you normally revise?',
@@ -108,24 +107,17 @@ function FeedbackForm({ sessionData, onComplete }) {
     setError('');
   };
 
-  const handleMultiSelect = (questionId, option) => {
+  const handleMultiSelect = (option) => {
     setFormData(prev => {
-      const currentValues = prev[questionId] || [];
+      const currentValues = prev.why_use_flashcards || [];
       const isSelected = currentValues.includes(option);
       
-      if (isSelected) {
-        // Remove option
-        return {
-          ...prev,
-          [questionId]: currentValues.filter(v => v !== option)
-        };
-      } else {
-        // Add option
-        return {
-          ...prev,
-          [questionId]: [...currentValues, option]
-        };
-      }
+      return {
+        ...prev,
+        why_use_flashcards: isSelected
+          ? currentValues.filter(v => v !== option)
+          : [...currentValues, option]
+      };
     });
     setError('');
   };
@@ -139,7 +131,6 @@ function FeedbackForm({ sessionData, onComplete }) {
     e.preventDefault();
     setError('');
 
-    // Validate required fields
     if (!formData.user_name.trim()) {
       setError('Please enter your name');
       return;
@@ -155,7 +146,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       return;
     }
 
-    // Validate dropdown questions (all except why_use_flashcards which is multi-select)
     const dropdownIds = dropdownQuestions
       .filter(q => q.type !== 'multiselect')
       .map(q => q.id);
@@ -167,7 +157,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       }
     }
 
-    // Validate multi-select has at least one option
     if (!formData.why_use_flashcards || formData.why_use_flashcards.length === 0) {
       setError('Please select at least one reason for using flashcards');
       return;
@@ -181,7 +170,7 @@ function FeedbackForm({ sessionData, onComplete }) {
     setIsSubmitting(true);
 
     try {
-      const { data, error: submitError } = await supabase
+      const { error: submitError } = await supabase
         .from('flashcard_feedback')
         .insert([
           {
@@ -196,7 +185,7 @@ function FeedbackForm({ sessionData, onComplete }) {
             most_important_feature: formData.most_important_feature,
             want_mcqs_after: formData.want_mcqs_after,
             session_feeling: formData.session_feeling,
-            comparison_to_normal_revision: formData.comparison_to_normal_revision,  // NEW FIELD
+            comparison_to_normal_revision: formData.comparison_to_normal_revision,
             additional_comments: formData.additional_comments.trim()
           }
         ]);
@@ -213,131 +202,141 @@ function FeedbackForm({ sessionData, onComplete }) {
   };
 
   return (
-    <div className="feedback-form">
-      <div className="form-header">
+    <div className="feedback-container">
+      <div className="feedback-header">
         <h2>📝 Your Feedback</h2>
         <p>Help us improve the flashcard experience</p>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        {/* Personal Info */}
-        <div className="form-section">
-          <div className="form-group">
-            <label htmlFor="user_name">Name *</label>
-            <input
-              type="text"
-              id="user_name"
-              name="user_name"
-              value={formData.user_name}
-              onChange={handleChange}
-              placeholder="Your name"
-              required
-            />
+      <div className="feedback-form">
+        <form onSubmit={handleSubmit}>
+          {/* Personal Info */}
+          <div className="form-section">
+            <label className="form-label">
+              Name *
+              <input
+                type="text"
+                name="user_name"
+                value={formData.user_name}
+                onChange={handleChange}
+                placeholder="Your name"
+                className="form-input"
+                required
+              />
+            </label>
+
+            <label className="form-label">
+              Phone Number *
+              <input
+                type="tel"
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
+                placeholder="10-digit number"
+                maxLength="10"
+                className="form-input"
+                required
+              />
+            </label>
+
+            <label className="form-label">
+              MBBS Year *
+              <select
+                name="mbbs_year"
+                value={formData.mbbs_year}
+                onChange={handleChange}
+                className="form-select"
+                required
+              >
+                <option value="">Select year</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="Intern">Intern</option>
+                <option value="PG">PG</option>
+              </select>
+            </label>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="phone_number">Phone Number *</label>
-            <input
-              type="tel"
-              id="phone_number"
-              name="phone_number"
-              value={formData.phone_number}
-              onChange={handleChange}
-              placeholder="10-digit number"
-              maxLength="10"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="mbbs_year">MBBS Year *</label>
-            <select
-              id="mbbs_year"
-              name="mbbs_year"
-              value={formData.mbbs_year}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select year</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="Intern">Intern</option>
-              <option value="PG">PG</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Feedback Questions */}
-        <div className="form-section">
-          {dropdownQuestions.map((question) => (
-            <div key={question.id} className="form-group">
-              <label>{question.label}</label>
-              
-              {question.type === 'multiselect' ? (
-                <div className="checkbox-group">
-                  {question.options.map((option) => (
-                    <label key={option} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={formData[question.id]?.includes(option) || false}
-                        onChange={() => handleMultiSelect(question.id, option)}
-                      />
-                      <span>{option}</span>
-                    </label>
-                  ))}
-                </div>
-              ) : (
-                <select
-                  name={question.id}
-                  value={formData[question.id]}
-                  onChange={handleChange}
-                  required
-                >
-                  {question.options.map((option) => (
-                    <option 
-                      key={option} 
-                      value={option}
-                      disabled={option === 'Select an option'}
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              )}
+          {/* Feedback Questions */}
+          {dropdownQuestions.map((question, idx) => (
+            <div key={question.id} className="form-section">
+              <label className="form-label">
+                {question.label}
+                
+                {question.type === 'multiselect' ? (
+                  <div className="checkbox-group">
+                    {question.options.map((option) => {
+                      const isChecked = formData.why_use_flashcards?.includes(option);
+                      return (
+                        <div
+                          key={option}
+                          className={`checkbox-item ${isChecked ? 'checked' : ''}`}
+                          onClick={() => handleMultiSelect(option)}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => handleMultiSelect(option)}
+                            className="checkbox-input"
+                          />
+                          <span className="checkbox-label">{option}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <select
+                    name={question.id}
+                    value={formData[question.id]}
+                    onChange={handleChange}
+                    className="form-select"
+                    required
+                  >
+                    {question.options.map((option) => (
+                      <option 
+                        key={option} 
+                        value={option}
+                        disabled={option === 'Select an option'}
+                      >
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </label>
             </div>
           ))}
-        </div>
 
-        {/* Additional Comments */}
-        <div className="form-section">
-          <div className="form-group">
-            <label htmlFor="additional_comments">Additional Comments (Optional)</label>
-            <textarea
-              id="additional_comments"
-              name="additional_comments"
-              value={formData.additional_comments}
-              onChange={handleChange}
-              placeholder="Any other thoughts or suggestions?"
-              rows="4"
-            />
+          {/* Additional Comments */}
+          <div className="form-section">
+            <label className="form-label">
+              Additional Comments (Optional)
+              <textarea
+                name="additional_comments"
+                value={formData.additional_comments}
+                onChange={handleChange}
+                placeholder="Any other thoughts or suggestions?"
+                className="form-textarea"
+              />
+            </label>
           </div>
-        </div>
 
-        {error && <div className="error-message">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
 
-        <button 
-          type="submit" 
-          className="submit-button"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
-        </button>
-      </form>
+          <button 
+            type="submit" 
+            className="submit-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
