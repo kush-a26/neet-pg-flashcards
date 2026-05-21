@@ -150,7 +150,7 @@ function FeedbackForm({ sessionData, onComplete }) {
       return;
     }
 
-    // Validate all dropdown questions
+    // Validate all dropdown questions - FIXED: removed trim() check
     const requiredDropdowns = [
       'biggest_barrier',
       'most_important_feature',
@@ -161,9 +161,9 @@ function FeedbackForm({ sessionData, onComplete }) {
 
     for (const fieldName of requiredDropdowns) {
       const value = formData[fieldName];
-      if (!value || value.trim() === '') {
+      if (!value || value === '') {
         setError('Please answer all questions');
-        console.log('Missing field:', fieldName); // Debug
+        console.log('Missing field:', fieldName, 'Value:', value); // Debug
         return;
       }
     }
@@ -183,9 +183,9 @@ function FeedbackForm({ sessionData, onComplete }) {
             user_name: formData.user_name.trim(),
             phone_number: formData.phone_number.trim(),
             mbbs_year: formData.mbbs_year,
-            session_duration: sessionData.duration,
-            cards_completed: sessionData.cardsCompleted,
-            responses: sessionData.responses,
+            session_duration: sessionData?.duration || 0,
+            cards_completed: sessionData?.cardsCompleted || 0,
+            responses: sessionData?.responses || {},
             why_use_flashcards: formData.why_use_flashcards,
             biggest_barrier: formData.biggest_barrier,
             most_important_feature: formData.most_important_feature,
@@ -196,8 +196,12 @@ function FeedbackForm({ sessionData, onComplete }) {
           }
         ]);
 
-      if (submitError) throw submitError;
+      if (submitError) {
+        console.error('Supabase error:', submitError);
+        throw submitError;
+      }
 
+      alert('Thank you for your feedback! 🎉');
       onComplete();
     } catch (err) {
       console.error('Submission error:', err);
@@ -276,7 +280,7 @@ function FeedbackForm({ sessionData, onComplete }) {
                     {question.options.map((option) => {
                       const isChecked = formData.why_use_flashcards?.includes(option) || false;
                       return (
-                        <div
+                        <label
                           key={option}
                           className={`checkbox-item ${isChecked ? 'checked' : ''}`}
                         >
@@ -286,13 +290,10 @@ function FeedbackForm({ sessionData, onComplete }) {
                             onChange={() => handleMultiSelect(option)}
                             className="checkbox-input"
                           />
-                          <span 
-                            className="checkbox-label"
-                            onClick={() => handleMultiSelect(option)}
-                          >
+                          <span className="checkbox-label">
                             {option}
                           </span>
-                        </div>
+                        </label>
                       );
                     })}
                   </div>
