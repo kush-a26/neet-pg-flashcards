@@ -45,7 +45,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       id: 'biggest_barrier',
       label: 'What\'s the biggest barrier to using flashcards regularly?',
       options: [
-        'Select an option',
         'Takes too much time',
         'Boring / not engaging',
         'Don\'t trust the accuracy',
@@ -57,7 +56,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       id: 'most_important_feature',
       label: 'What\'s the most important missing feature?',
       options: [
-        'Select an option',
         'More subjects (Medicine, Surgery)',
         'Topic/subject selection',
         'Progress tracking over time',
@@ -69,7 +67,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       id: 'want_mcqs_after',
       label: 'Would you want to solve MCQs after flashcard review?',
       options: [
-        'Select an option',
         'Yes, essential',
         'Yes, but only high-yield',
         'No, flashcards are enough',
@@ -80,7 +77,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       id: 'session_feeling',
       label: 'How did this session feel?',
       options: [
-        'Select an option',
         'Like actual studying',
         'Good for quick revision',
         'Just testing myself',
@@ -92,7 +88,6 @@ function FeedbackForm({ sessionData, onComplete }) {
       id: 'comparison_to_normal_revision',
       label: 'How is this compared to how you normally revise?',
       options: [
-        'Select an option',
         'Better than my usual method',
         'Worse than my usual method',
         'About the same',
@@ -155,7 +150,7 @@ function FeedbackForm({ sessionData, onComplete }) {
       return;
     }
 
-    // Validate all dropdown questions (excluding the multi-select one)
+    // Validate all dropdown questions
     const requiredDropdowns = [
       'biggest_barrier',
       'most_important_feature',
@@ -166,9 +161,9 @@ function FeedbackForm({ sessionData, onComplete }) {
 
     for (const fieldName of requiredDropdowns) {
       const value = formData[fieldName];
-      if (!value || value === '' || value === 'Select an option') {
+      if (!value || value.trim() === '') {
         setError('Please answer all questions');
-        console.log('Missing field:', fieldName, 'Value:', value); // Debug log
+        console.log('Missing field:', fieldName); // Debug
         return;
       }
     }
@@ -279,21 +274,24 @@ function FeedbackForm({ sessionData, onComplete }) {
                 {question.type === 'multiselect' ? (
                   <div className="checkbox-group">
                     {question.options.map((option) => {
-                      const isChecked = formData.why_use_flashcards?.includes(option);
+                      const isChecked = formData.why_use_flashcards?.includes(option) || false;
                       return (
                         <div
                           key={option}
                           className={`checkbox-item ${isChecked ? 'checked' : ''}`}
-                          onClick={() => handleMultiSelect(option)}
                         >
                           <input
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => handleMultiSelect(option)}
                             className="checkbox-input"
-                            onClick={(e) => e.stopPropagation()}
                           />
-                          <span className="checkbox-label">{option}</span>
+                          <span 
+                            className="checkbox-label"
+                            onClick={() => handleMultiSelect(option)}
+                          >
+                            {option}
+                          </span>
                         </div>
                       );
                     })}
@@ -305,12 +303,9 @@ function FeedbackForm({ sessionData, onComplete }) {
                     onChange={handleChange}
                     className="form-select"
                   >
+                    <option value="">Select an option</option>
                     {question.options.map((option) => (
-                      <option 
-                        key={option} 
-                        value={option}
-                        disabled={option === 'Select an option'}
-                      >
+                      <option key={option} value={option}>
                         {option}
                       </option>
                     ))}
