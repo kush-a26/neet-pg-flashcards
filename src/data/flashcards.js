@@ -15,6 +15,7 @@ export const flashcards = [
     subject: "Anatomy",
     topic: "Muscles of Mastication",
     question: "Identify the muscle labeled '1' in this image",
+    questionImage:"/images/Muscles-mastication.png",
     answer: "Temporalis (Musculus temporalis)",
     answerImage: "/images/Muscles-mastication.png",
     clinical: "The temporalis is one of the 4 muscles of mastication. It is a broad, radiating muscle whose contractions can be seen during chewing. Origin: Floor of the temporal fossa and the deep surface of the temporal fascia. The muscles of mastication are derived embryologically from the 1st pharyngeal (branchial) arch and are innervated by the mandibular division of the trigeminal nerve (CN V3)."
