@@ -131,35 +131,46 @@ function FeedbackForm({ sessionData, onComplete }) {
     e.preventDefault();
     setError('');
 
+    // Validate name
     if (!formData.user_name.trim()) {
       setError('Please enter your name');
       return;
     }
 
+    // Validate phone
     if (!validatePhone(formData.phone_number)) {
       setError('Phone number must be 10 digits starting with 6-9');
       return;
     }
 
+    // Validate MBBS year
     if (!formData.mbbs_year) {
       setError('Please select your MBBS year');
       return;
     }
 
-    const dropdownIds = dropdownQuestions
-      .filter(q => q.type !== 'multiselect')
-      .map(q => q.id);
-    
-    for (const id of dropdownIds) {
-      if (!formData[id] || formData[id] === 'Select an option') {
-        setError('Please answer all questions');
-        return;
-      }
-    }
-
+    // Validate multi-select (why_use_flashcards)
     if (!formData.why_use_flashcards || formData.why_use_flashcards.length === 0) {
       setError('Please select at least one reason for using flashcards');
       return;
+    }
+
+    // Validate all dropdown questions (excluding the multi-select one)
+    const requiredDropdowns = [
+      'biggest_barrier',
+      'most_important_feature',
+      'want_mcqs_after',
+      'session_feeling',
+      'comparison_to_normal_revision'
+    ];
+
+    for (const fieldName of requiredDropdowns) {
+      const value = formData[fieldName];
+      if (!value || value === '' || value === 'Select an option') {
+        setError('Please answer all questions');
+        console.log('Missing field:', fieldName, 'Value:', value); // Debug log
+        return;
+      }
     }
 
     if (!supabase) {
@@ -221,7 +232,6 @@ function FeedbackForm({ sessionData, onComplete }) {
                 onChange={handleChange}
                 placeholder="Your name"
                 className="form-input"
-                required
               />
             </label>
 
@@ -235,7 +245,6 @@ function FeedbackForm({ sessionData, onComplete }) {
                 placeholder="10-digit number"
                 maxLength="10"
                 className="form-input"
-                required
               />
             </label>
 
@@ -246,7 +255,6 @@ function FeedbackForm({ sessionData, onComplete }) {
                 value={formData.mbbs_year}
                 onChange={handleChange}
                 className="form-select"
-                required
               >
                 <option value="">Select year</option>
                 <option value="2018">2018</option>
@@ -263,7 +271,7 @@ function FeedbackForm({ sessionData, onComplete }) {
           </div>
 
           {/* Feedback Questions */}
-          {dropdownQuestions.map((question, idx) => (
+          {dropdownQuestions.map((question) => (
             <div key={question.id} className="form-section">
               <label className="form-label">
                 {question.label}
@@ -283,6 +291,7 @@ function FeedbackForm({ sessionData, onComplete }) {
                             checked={isChecked}
                             onChange={() => handleMultiSelect(option)}
                             className="checkbox-input"
+                            onClick={(e) => e.stopPropagation()}
                           />
                           <span className="checkbox-label">{option}</span>
                         </div>
@@ -295,7 +304,6 @@ function FeedbackForm({ sessionData, onComplete }) {
                     value={formData[question.id]}
                     onChange={handleChange}
                     className="form-select"
-                    required
                   >
                     {question.options.map((option) => (
                       <option 
