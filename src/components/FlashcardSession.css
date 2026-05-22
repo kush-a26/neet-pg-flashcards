@@ -1,12 +1,17 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .session-container {
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   background: #F2F2F7;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
 }
 
 .session-header {
@@ -17,7 +22,8 @@
   background: white;
   min-height: 60px;
   flex-shrink: 0;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
 }
 
@@ -53,7 +59,8 @@
   height: 3px;
   background: #E5E7EB;
   flex-shrink: 0;
-  position: relative;
+  position: sticky;
+  top: 60px;
   z-index: 20;
 }
 
@@ -68,7 +75,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  min-height: 0;
   padding-bottom: 180px;
 }
 
@@ -256,15 +262,23 @@
   transform: scale(0.96);
 }
 
-/* Mobile Safari fix */
-@supports (-webkit-touch-callout: none) {
-  .session-container {
-    height: -webkit-fill-available;
-  }
-}
-
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
+  .session-container {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  .session-header {
+    position: sticky;
+    top: 0;
+  }
+  
+  .progress-bar-container {
+    position: sticky;
+    top: 60px;
+  }
+  
   .flashcard-container {
     padding: 16px;
     padding-bottom: 180px;
@@ -277,5 +291,16 @@
   
   .response-section {
     padding: 16px;
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .session-container {
+    min-height: -webkit-fill-available;
+  }
+  
+  .flashcard-container {
+    -webkit-overflow-scrolling: touch;
   }
 }
