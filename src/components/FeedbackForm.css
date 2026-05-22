@@ -1,16 +1,12 @@
 .feedback-container {
   width: 100%;
-  min-height: 100vh;
   background: #F2F2F7;
-  display: flex;
-  flex-direction: column;
 }
 
 .feedback-header {
   background: white;
   padding: 24px 20px;
   text-align: center;
-  flex-shrink: 0;
   border-bottom: 1px solid #E5E7EB;
 }
 
@@ -19,17 +15,11 @@
   font-weight: 700;
   color: #1C1C1E;
   margin-bottom: 8px;
-  letter-spacing: -0.5px;
 }
 
 .feedback-header p {
   font-size: 15px;
   color: #8E8E93;
-  letter-spacing: -0.2px;
-}
-
-.feedback-form {
-  width: 100%;
 }
 
 .feedback-form form {
@@ -52,7 +42,6 @@
   font-weight: 600;
   color: #1C1C1E;
   margin-bottom: 20px;
-  letter-spacing: -0.2px;
 }
 
 .form-label:last-child {
@@ -69,8 +58,6 @@
   color: #1C1C1E;
   background: #F9FAFB;
   margin-top: 8px;
-  transition: all 0.2s;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
 }
 
 .form-input:focus,
@@ -86,8 +73,6 @@
   background-position: right 16px center;
   padding-right: 40px;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 .form-textarea {
@@ -101,8 +86,6 @@
   margin-top: 8px;
   resize: vertical;
   min-height: 100px;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-  transition: all 0.2s;
 }
 
 .form-textarea:focus {
@@ -126,8 +109,6 @@
   border: 2px solid #E5E7EB;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .checkbox-item.checked {
@@ -141,7 +122,6 @@
   margin: 0;
   margin-right: 12px;
   cursor: pointer;
-  flex-shrink: 0;
   accent-color: #007AFF;
 }
 
@@ -150,7 +130,6 @@
   color: #1C1C1E;
   cursor: pointer;
   flex: 1;
-  letter-spacing: -0.2px;
 }
 
 .error-message {
@@ -175,14 +154,10 @@
   font-weight: 600;
   cursor: pointer;
   margin-top: 24px;
-  transition: all 0.2s;
-  letter-spacing: -0.3px;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .submit-btn:disabled {
   background: #C7C7CC;
-  cursor: not-allowed;
 }
 
 .submit-btn:not(:disabled):active {
@@ -190,16 +165,7 @@
   background: #0051D5;
 }
 
-/* Mobile optimizations */
 @media (max-width: 768px) {
-  .feedback-header {
-    padding: 20px 16px;
-  }
-  
-  .feedback-header h2 {
-    font-size: 22px;
-  }
-  
   .feedback-form form {
     padding: 16px;
     padding-bottom: 200px;
