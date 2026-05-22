@@ -36,8 +36,10 @@
   height: 100%;
   background: #FFFFFF;
   border-radius: 47px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
 .iphone-home-indicator {
@@ -52,23 +54,24 @@
   z-index: 10;
 }
 
-/* CRITICAL: Mobile-specific - Remove iPhone frame completely */
+/* Mobile: Full screen, scrollable */
 @media (max-width: 768px) {
   html, body {
-    height: 100%;
-    overflow: hidden;
+    overflow: auto !important;
+    height: auto !important;
   }
   
   .app-container {
     padding: 0;
     min-height: 100vh;
-    height: 100vh;
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
   }
   
   .iphone-frame {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
@@ -81,7 +84,8 @@
   
   .iphone-screen {
     border-radius: 0;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     overflow: visible;
   }
   
@@ -90,24 +94,7 @@
   }
 }
 
-/* iOS Safari specific */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 768px) {
-    .app-container {
-      height: -webkit-fill-available;
-    }
-    
-    .iphone-frame {
-      height: -webkit-fill-available;
-    }
-    
-    .iphone-screen {
-      height: -webkit-fill-available;
-    }
-  }
-}
-
-/* Global iOS-style elements */
+/* Global styles */
 button {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   -webkit-tap-highlight-color: transparent;
