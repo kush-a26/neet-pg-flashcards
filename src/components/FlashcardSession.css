@@ -1,17 +1,10 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 .session-container {
   width: 100%;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  height: 100%;
   background: #F2F2F7;
   display: flex;
   flex-direction: column;
-  position: relative;
+  overflow: hidden;
 }
 
 .session-header {
@@ -22,9 +15,6 @@
   background: white;
   min-height: 60px;
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 20;
 }
 
 .card-counter {
@@ -59,9 +49,6 @@
   height: 3px;
   background: #E5E7EB;
   flex-shrink: 0;
-  position: sticky;
-  top: 60px;
-  z-index: 20;
 }
 
 .progress-bar {
@@ -75,7 +62,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
 }
 
 .flashcard {
@@ -262,26 +249,11 @@
   transform: scale(0.96);
 }
 
-/* Mobile-specific adjustments */
+/* Mobile optimizations */
 @media (max-width: 768px) {
-  .session-container {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-  }
-  
-  .session-header {
-    position: sticky;
-    top: 0;
-  }
-  
-  .progress-bar-container {
-    position: sticky;
-    top: 60px;
-  }
-  
   .flashcard-container {
     padding: 16px;
-    padding-bottom: 180px;
+    padding-bottom: 160px;
   }
   
   .flashcard {
@@ -291,16 +263,5 @@
   
   .response-section {
     padding: 16px;
-  }
-}
-
-/* iOS Safari specific fixes */
-@supports (-webkit-touch-callout: none) {
-  .session-container {
-    min-height: -webkit-fill-available;
-  }
-  
-  .flashcard-container {
-    -webkit-overflow-scrolling: touch;
   }
 }
