@@ -49,7 +49,7 @@
 
 .feedback-form form {
   padding: 20px;
-  padding-bottom: 60px;
+  padding-bottom: 200px;
   max-width: 600px;
   margin: 0 auto;
   width: 100%;
@@ -232,7 +232,7 @@
   
   .feedback-form form {
     padding: 16px;
-    padding-bottom: 80px;
+    padding-bottom: 250px;
   }
   
   .form-section {
@@ -248,5 +248,16 @@
   
   .feedback-form {
     -webkit-overflow-scrolling: touch;
+  }
+  
+  .feedback-form form {
+    padding-bottom: 300px;
+  }
+}
+
+/* Safe area insets for devices with notch/island */
+@supports (padding: max(0px)) {
+  .feedback-form form {
+    padding-bottom: max(200px, env(safe-area-inset-bottom) + 150px);
   }
 }
